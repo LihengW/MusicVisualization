@@ -14,4 +14,9 @@ class MUSICVISUALIZATION_API AVisualizationGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Assets")
+	TArray<USoundWave> AudioAssets;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Assets")
+	FString AudioAssetsAddress = "../../../Content/Audio";
 };

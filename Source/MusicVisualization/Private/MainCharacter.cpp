@@ -74,7 +74,9 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMainCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMainCharacter::Look);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AMainCharacter::Jump);
+
+		EnhancedInputComponent->BindAction(PullAction, ETriggerEvent::Triggered, this, &AMainCharacter::Pull);
+		EnhancedInputComponent->BindAction(PushAction, ETriggerEvent::Triggered, this, &AMainCharacter::Push);
 	}
 }
 
@@ -108,9 +110,54 @@ void AMainCharacter::Look(const FInputActionValue& value)
 	}
 }
 
-void AMainCharacter::jump(const FInputActionValue& value)
+void AMainCharacter::Pull(const FInputActionValue& value)
 {
-	bPressedJump = value.Get<bool>();
+	if (value.Get<bool>())
+	{
+		GEngine->AddOnScreenDebugMessage(2, 1, FColor::Red, "Receive Pull");
+		FCollisionQueryParams qpara;
+		FHitResult LineHit;
+		FVector Start = CameraComponent->GetComponentLocation();
+		FRotator Rotation = CameraComponent->GetComponentRotation();
+		GetWorld()->LineTraceSingleByChannel(LineHit, Start, Start + Rotation.Vector() * SearchRange, ECollisionChannel::ECC_GameTraceChannel1, qpara);
+		if (LineHit.bBlockingHit)
+		{
+			LineHit.GetActor()->AddActorWorldOffset(-Rotation.Vector() * 50.0f);
+			GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Hit Something");
+		}
+	}
 }
+
+void AMainCharacter::Push(const FInputActionValue& value)
+{
+	if (value.Get<bool>())
+	{
+		GEngine->AddOnScreenDebugMessage(2, 1, FColor::Red, "Receive pUSH");
+		FCollisionQueryParams qpara;
+		FHitResult LineHit;
+		FVector Start = CameraComponent->GetComponentLocation();
+		FRotator Rotation = CameraComponent->GetComponentRotation();
+		GetWorld()->LineTraceSingleByChannel(LineHit, Start, Start + Rotation.Vector() * SearchRange, ECollisionChannel::ECC_GameTraceChannel1, qpara);
+		if (LineHit.bBlockingHit)
+		{
+			LineHit.GetActor()->AddActorWorldOffset(Rotation.Vector() * 50.0f);
+			GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Hit Something");
+		}
+	}
+}
+
+void AMainCharacter::Install(const FInputActionValue& value)
+{
+	// save for later
+}
+
+void AMainCharacter::Grab(const FInputActionValue& value)
+{
+	// save for later
+}
+
+
+
+
 
 

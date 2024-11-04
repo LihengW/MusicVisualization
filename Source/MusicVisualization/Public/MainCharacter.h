@@ -26,7 +26,13 @@ public:
 
 	void Look(const FInputActionValue& value);
 
-	void jump(const FInputActionValue& value);
+	void Pull(const FInputActionValue& value);
+
+	void Push(const FInputActionValue& value);
+
+	void Install(const FInputActionValue& value);
+
+	void Grab(const FInputActionValue& value);
 
 protected:
 	// Called when the game starts or when spawned
@@ -50,8 +56,16 @@ public:
 	TObjectPtr<UInputAction> LookAction;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
-	TObjectPtr<UInputAction> JumpAction;
+	TObjectPtr<UInputAction> PullAction;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> PushAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> InstallAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> GrabAction;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Control")
 	APlayerController* PlayerController;
@@ -61,5 +75,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	UCameraComponent* CameraComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Para")
+	float SearchRange = 10000.0f;
 
 };
