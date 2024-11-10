@@ -77,6 +77,11 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 		EnhancedInputComponent->BindAction(PullAction, ETriggerEvent::Triggered, this, &AMainCharacter::Pull);
 		EnhancedInputComponent->BindAction(PushAction, ETriggerEvent::Triggered, this, &AMainCharacter::Push);
+
+		EnhancedInputComponent->BindAction(ShowTableAction, ETriggerEvent::Triggered, this, &AMainCharacter::ShowTable);
+		EnhancedInputComponent->BindAction(ShowObjectUIAction, ETriggerEvent::Triggered, this, &AMainCharacter::ShowObjectUI);
+
+		EnhancedInputComponent->BindAction(InstallAction, ETriggerEvent::Triggered, this, &AMainCharacter::InstallBluePrint);
 	}
 }
 

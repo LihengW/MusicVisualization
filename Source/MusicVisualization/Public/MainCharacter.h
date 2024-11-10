@@ -34,6 +34,15 @@ public:
 
 	void Grab(const FInputActionValue& value);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowTable(const FInputActionValue& value);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowObjectUI(const FInputActionValue& value);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void InstallBluePrint(const FInputActionValue& value);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -67,13 +76,19 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> GrabAction;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> ShowTableAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> ShowObjectUIAction;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Control")
 	APlayerController* PlayerController;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	USpringArmComponent* SpringArm;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera")
 	UCameraComponent* CameraComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Para")
